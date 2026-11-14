@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NovaCart - Modern E-Commerce Product Catalog and Interactive Shopping Cart">
+    <title>NovaCart | Modern E-Commerce Store</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sticky Semantic Header -->
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="#" class="brand-logo" aria-label="NovaCart Home">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span>NovaCart</span>
+            </a>
+
+            <nav class="main-nav" aria-label="Main Navigation">
+                <ul class="nav-links">
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#catalog">Products</a></li>
+                    <li><a href="#features">Why Us</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <button id="cart-toggle-btn" class="cart-btn" aria-label="Open Shopping Cart">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-label">Cart</span>
+                    <span id="cart-badge" class="cart-badge">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Banner Section -->
+        <section id="hero" class="hero-section">
+            <div class="container hero-content">
+                <span class="hero-tag">New Season Collection 2026</span>
+                <h1>Elevate Your Everyday Tech & Lifestyle</h1>
+                <p>Discover curated electronics, minimalist workspace essentials, and modern accessories crafted for performance and style.</p>
+                <a href="#catalog" class="btn btn-primary btn-lg">Explore Catalog</a>
+            </div>
+        </section>
+
+        <!-- Product Catalog Section -->
+        <section id="catalog" class="catalog-section container">
+            <div class="section-header">
+                <h2>Product Catalog</h2>
+                <p>Browse our latest collection, filter by category, or search for specific gear.</p>
+            </div>
+
+            <!-- Interactive Filter & Search Toolbar -->
+            <div class="controls-bar" role="region" aria-label="Product Filters">
+                <div class="search-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="search-input" placeholder="Search products by name or keyword..." aria-label="Search products">
+                </div>
+
+                <div class="filter-group">
+                    <div class="category-pills" id="category-filters" role="group" aria-label="Category Filter">
+                        <button class="pill active" data-category="All">All</button>
+                        <button class="pill" data-category="Electronics">Electronics</button>
+                        <button class="pill" data-category="Audio">Audio</button>
+                        <button class="pill" data-category="Accessories">Accessories</button>
+                        <button class="pill" data-category="Workspace">Workspace</button>
+                    </div>
+
+                    <select id="sort-select" class="sort-dropdown" aria-label="Sort products">
+                        <option value="featured">Sort: Featured</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                        <option value="rating">Highest Rated</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Product Grid Container -->
+            <div id="product-grid" class="product-grid" aria-live="polite">
+                <!-- Product cards rendered dynamically via JavaScript -->
+            </div>
+
+            <!-- Empty Search State -->
+            <div id="no-results" class="no-results hidden">
+                <i class="fa-solid fa-box-open"></i>
+                <h3>No matching products found</h3>
+                <p>Try clearing your search query or switching categories.</p>
+                <button id="reset-filters-btn" class="btn btn-outline">Reset Filters</button>
+            </div>
+        </section>
+
+        <!-- Value Proposition Features -->
+        <section id="features" class="features-section">
+            <div class="container features-grid">
+                <div class="feature-card">
+                    <i class="fa-solid fa-truck-fast"></i>
+                    <h3>Express Shipping</h3>
+                    <p>Complimentary fast delivery on all orders above ₹2,000.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <h3>Secure Checkout</h3>
+                    <p>256-bit encrypted payments with instant order confirmation.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    <h3>30-Day Returns</h3>
+                    <p>Hassle-free returns and instant exchanges on all items.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Slide-Over Shopping Cart Drawer -->
+    <div id="cart-overlay" class="cart-overlay hidden"></div>
+    <aside id="cart-drawer" class="cart-drawer" aria-label="Shopping Cart" aria-hidden="true">
+        <div class="cart-header">
+            <h2><i class="fa-solid fa-bag-shopping"></i> Your Cart</h2>
+            <button id="close-cart-btn" class="icon-btn" aria-label="Close Cart">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div id="cart-items-container" class="cart-items">
+            <!-- Cart items injected via JS -->
+        </div>
+
+        <div id="cart-footer" class="cart-footer">
+            <div class="promo-box">
+                <input type="text" id="promo-input" placeholder="Promo code (try NOVA10)">
+                <button id="apply-promo-btn" class="btn btn-secondary">Apply</button>
+            </div>
+            <p id="promo-message" class="promo-msg"></p>
+
+            <div class="summary-lines">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal">₹0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Discount</span>
+                    <span id="cart-discount" class="text-success">-₹0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span id="cart-shipping">Free</span>
+                </div>
+                <div class="summary-row total-row">
+                    <span>Total</span>
+                    <span id="cart-total">₹0</span>
+                </div>
+            </div>
+
+            <button id="checkout-btn" class="btn btn-primary btn-block" disabled>
+                Proceed to Checkout
+            </button>
+        </div>
+    </aside>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Complete Your Order</h2>
+                <button id="close-modal-btn" class="icon-btn" aria-label="Close Modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form id="checkout-form" novalidate>
+                <div class="form-group">
+                    <label for="cust-name">Full Name *</label>
+                    <input type="text" id="cust-name" placeholder="Ananya Sharma" required>
+                    <small class="error-text" id="err-name"></small>
+                </div>
+                <div class="form-group">
+                    <label for="cust-email">Email Address *</label>
+                    <input type="email" id="cust-email" placeholder="ananya@example.com" required>
+                    <small class="error-text" id="err-email"></small>
+                </div>
+                <div class="form-group">
+                    <label for="cust-address">Shipping Address *</label>
+                    <textarea id="cust-address" rows="2" placeholder="42 MG Road, Bengaluru, Karnataka" required></textarea>
+                    <small class="error-text" id="err-address"></small>
+                </div>
+                <div class="checkout-summary-box">
+                    <span>Final Payable Amount:</span>
+                    <strong id="modal-payable">₹0</strong>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span>NovaCart</span>
+            </div>
+            <p>&copy; 2026 NovaCart Storefront. Built with Semantic HTML5, CSS Grid/Flexbox & Vanilla JavaScript.</p>
+        </div>
+    </footer>
+
+    <script src="js/products.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
